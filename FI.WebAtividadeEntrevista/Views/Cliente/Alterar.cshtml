@@ -1,0 +1,28 @@
+﻿@model WebAtividadeEntrevista.Models.ClienteModel
+@{
+    ViewBag.Title = "Alterar Cliente";
+}
+@section scripts{
+    <script>
+        var urlPost = '@Url.Action("Alterar", "Cliente", new { area = "" })';
+        var obj = @Html.Raw(Json.Encode(Model));
+        var urlRetorno = '@Url.Action("Index", "Cliente", new { area = "" })';
+        var urlInsertBeneficiario = '@Url.Action("Incluir", "Beneficiario", new { area = ""})';
+        var urlAlteraBeneficiario = '@Url.Action("Alterar", "Beneficiario", new { area = "" })';
+        var urlListBeneficiario = '@Url.Action("Listar", "Beneficiario", new { area = ""})';
+        var urlDeleteBeneficiario = '@Url.Action("Excluir", "Beneficiario", new { area = ""})';
+    </script>
+    @Scripts.Render("~/bundles/altClientes")
+    @Scripts.Render("~/bundles/beneficiariosAlt")
+    @Scripts.Render("~/bundles/beneficiarios")
+}
+<h2>@Html.Raw(ViewBag.Title)</h2>
+<div class="col-md-12">
+    <div class="row">
+        <div class="pull-right">
+            <button data-toggle="modal" data-target="#beneficiarioModal" class="btn btn-info">Beneficiários</button>
+        </div>
+    </div>
+</div>
+@Html.Partial("Forms")
+@Html.Partial("BeneficiarioModal")
