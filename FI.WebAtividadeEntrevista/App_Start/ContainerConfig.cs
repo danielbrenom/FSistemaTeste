@@ -2,6 +2,8 @@
 using System.Web.Http;
 using System.Web.Mvc;
 using FI.AtividadeEntrevista.DAL;
+using FI.AtividadeEntrevista.DAL.Beneficiarios;
+using FI.AtividadeEntrevista.DAL.Clientes;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;

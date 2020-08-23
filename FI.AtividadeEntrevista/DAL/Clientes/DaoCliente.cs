@@ -6,7 +6,7 @@ using System.Linq;
 using FI.AtividadeEntrevista.DAL.Padrao;
 using FI.AtividadeEntrevista.DML;
 
-namespace FI.AtividadeEntrevista.DAL
+namespace FI.AtividadeEntrevista.DAL.Clientes
 {
     /// <summary>
     /// Classe de acesso a dados de Cliente

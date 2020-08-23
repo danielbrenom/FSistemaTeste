@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FI.AtividadeEntrevista.DAL;
+using FI.AtividadeEntrevista.DAL.Beneficiarios;
 using FI.AtividadeEntrevista.DML;
 
 namespace FI.AtividadeEntrevista.BLL

@@ -1,10 +1,12 @@
-﻿using FI.AtividadeEntrevista.DML;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using FI.AtividadeEntrevista.DAL.Padrao;
+using FI.AtividadeEntrevista.DML;
 
-namespace FI.AtividadeEntrevista.DAL
+namespace FI.AtividadeEntrevista.DAL.Beneficiarios
 {
     public class DaoBeneficiario : AcessoDados
     {
@@ -14,15 +16,15 @@ namespace FI.AtividadeEntrevista.DAL
         /// <param name="beneficiario">Objeto de beneficiario</param>
         internal long Incluir(Beneficiario beneficiario)
         {
-            var parametros = new List<System.Data.SqlClient.SqlParameter>
+            var parametros = new List<SqlParameter>
             {
-                new System.Data.SqlClient.SqlParameter("Nome", beneficiario.Nome),
-                new System.Data.SqlClient.SqlParameter("CPF", beneficiario.CPF),
-                new System.Data.SqlClient.SqlParameter("IdCliente", beneficiario.IdCliente),
+                new SqlParameter("Nome", beneficiario.Nome),
+                new SqlParameter("CPF", beneficiario.CPF),
+                new SqlParameter("IdCliente", beneficiario.IdCliente)
             };
             var verifica = VerificarExistencia(beneficiario.CPF);
             if (verifica)
-                throw new System.Exception("CPF já cadastrado");
+                throw new Exception("CPF já cadastrado");
             var ds = base.Consultar("FI_SP_IncBeneficiario", parametros);
             long ret = 0;
             if (ds.Tables[0].Rows.Count > 0)
@@ -36,9 +38,9 @@ namespace FI.AtividadeEntrevista.DAL
         /// <param name="Id">Id do beneficiario</param>
         internal Beneficiario Consultar(long Id)
         {
-            var parametros = new List<System.Data.SqlClient.SqlParameter>
+            var parametros = new List<SqlParameter>
             {
-                new System.Data.SqlClient.SqlParameter("Id", Id)
+                new SqlParameter("Id", Id)
             };
             var ds = base.Consultar("FI_SP_ConsBeneficiario", parametros);
             var cli = Converter(ds);
@@ -52,9 +54,9 @@ namespace FI.AtividadeEntrevista.DAL
         /// <returns></returns>
         internal bool VerificarExistencia(string CPF)
         {
-            var parametros = new List<System.Data.SqlClient.SqlParameter>
+            var parametros = new List<SqlParameter>
             {
-                new System.Data.SqlClient.SqlParameter("CPF", CPF)
+                new SqlParameter("CPF", CPF)
             };
             var ds = base.Consultar("FI_SP_VerificaBeneficiario", parametros);
             return ds.Tables[0].Rows.Count > 0;
@@ -65,9 +67,9 @@ namespace FI.AtividadeEntrevista.DAL
         /// </summary>
         internal List<Beneficiario> Listar(long clientId)
         {
-            var parametros = new List<System.Data.SqlClient.SqlParameter>
+            var parametros = new List<SqlParameter>
             {
-                new System.Data.SqlClient.SqlParameter("Id", clientId)
+                new SqlParameter("Id", clientId)
             };
             var ds = base.Consultar("FI_SP_ConsBeneficiario", parametros);
             var cli = Converter(ds);
@@ -80,11 +82,11 @@ namespace FI.AtividadeEntrevista.DAL
         /// <param name="cliente">Objeto de cliente</param>
         internal void Alterar(Beneficiario beneficiario)
         {
-            var parametros = new List<System.Data.SqlClient.SqlParameter>
+            var parametros = new List<SqlParameter>
             {
-                new System.Data.SqlClient.SqlParameter("Nome", beneficiario.Nome),
-                new System.Data.SqlClient.SqlParameter("CPF", beneficiario.CPF),
-                new System.Data.SqlClient.SqlParameter("Id", beneficiario.Id),
+                new SqlParameter("Nome", beneficiario.Nome),
+                new SqlParameter("CPF", beneficiario.CPF),
+                new SqlParameter("Id", beneficiario.Id)
             };
             Executar("FI_SP_AltBeneficiario", parametros);
         }
@@ -96,9 +98,9 @@ namespace FI.AtividadeEntrevista.DAL
         /// <param name="cliente">Objeto de cliente</param>
         internal void Excluir(long Id)
         {
-            var parametros = new List<System.Data.SqlClient.SqlParameter>
+            var parametros = new List<SqlParameter>
             {
-                new System.Data.SqlClient.SqlParameter("Id", Id)
+                new SqlParameter("Id", Id)
             };
             Executar("FI_SP_DelBeneficiario", parametros);
         }
@@ -111,7 +113,7 @@ namespace FI.AtividadeEntrevista.DAL
                 select new Beneficiario
                 {
                     Id = row.Field<long>("Id"), IdCliente = row.Field<long>("IdCliente"),
-                    Nome = row.Field<string>("Nome"), CPF = row.Field<string>("CPF"),
+                    Nome = row.Field<string>("Nome"), CPF = row.Field<string>("CPF")
                 });
             return lista;
         }
