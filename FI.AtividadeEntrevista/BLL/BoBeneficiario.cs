@@ -19,11 +19,7 @@ namespace FI.AtividadeEntrevista.BLL
         /// <returns></returns>
         public long Incluir(Beneficiario beneficiario)
         {
-            try
-            {
-                return cli.Incluir(beneficiario);
-            }
-            catch { throw; }
+            return cli.Incluir(beneficiario);
         }
 
         /// <summary>
